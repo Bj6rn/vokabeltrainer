@@ -1,0 +1,154 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    scroll-behavior: smooth;
+    margin: auto;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+body {
+    padding: var(--body-padding);
+    width: var(--width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+/*-----------------------*/
+/*Zuweisung von Variablen*/
+/*-----------------------*/
+:root {
+    --bg-color: #222831;
+    --accent-color: #393e46;
+    --red-color: #ac3232;
+    --green-color: #33b96b;
+    --text-color: #33b96b;
+    
+    --body-padding: 15px;
+    --width: clamp(200px, 500px, calc(100vW - var(--body-padding) * 2));
+}
+
+/*-----------------------------*/
+/*Algemeine Designeinstellungen*/
+/*-----------------------------*/
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#award {
+    max-width: 70%;
+    border: 2px solid var(--accent-color);
+    margin: 15px;
+    padding: 15px;
+}
+
+#comparison {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    grid-gap: 10px;
+}
+
+.voc-list {
+    list-style-type: none;
+    padding-inline-start: 0;
+    text-align: center;
+}
+
+.voc-list li {
+    margin-top: 5px;
+    padding: 5px;
+    border-top: 2px dashed var(--accent-color);
+}
+
+.mistake-hint {
+    color: var(--red-color);
+}
+
+#progress-bar {
+    width: 100%;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 2px;
+}
+
+.progress-indicator {
+    width: 10%;
+    height: 10px;
+    background-color: var(--accent-color);
+}
+
+#question  {
+    text-decoration: underline dashed;
+    text-underline-offset: 5px;
+    text-align: center;
+}
+
+#answer-form {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 15px;
+    width: 100%;
+}
+
+input[type=text] {
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+}
+
+input[type=text]:focus-visible {
+    border: 2px solid var(--red-color);
+    outline: none;
+}
+
+input[type=submit], #show-result-btn, #hint-btn {
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 10px;
+    background-color: var(--bg-color);
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+    width: 80%;
+    margin: 0px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover, #show-result-btn:hover, #hint-btn:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+#not-finished-text {
+    text-align: center;
+}
+
+#show-result-btn {
+    width: 50%;
+    margin: 10px;
+}
+
+#hint-btn {
+    width: calc(20% - 10px);
+    margin-left: 10px;
+}
+
+#btn-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}

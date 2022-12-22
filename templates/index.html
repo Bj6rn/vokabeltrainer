@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+        <link rel="icon" href="" type="image/svg+xml">
+        <title>Vokabeltrainer - {{ title }}</title>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        <h1 id="title">Vokabeltrainer - {{ title }}</h1>
+        <h4 id="date">{{ date }}</h4>
+        {% if completed == True: %}
+            <h2 id="score">{{ score }}/10 Points</h2>
+            <img id="award" src="{{ award }}" alt="your daily award">
+            <div id="comparison">
+                <ul class="voc-list">
+                    <h3>solution</h3>
+                    {% for item in vocabulary: %}
+                        <li>
+                            <div>{{ item.infinitive }}</div>
+                            <div>{{ item.simple_past }}</div>
+                            <div>{{ item.past_participle }}</div>
+                            <div>{{ item.german }}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <ul class="voc-list">
+                    <h3>your answer</h3>
+                    {% for item in user_solution: %}
+                        {% if item.mistake == True%}
+                            <li class="mistake-hint">
+                        {% else %}
+                            <li>
+                        {% endif %}
+                                <div>{{ item.infinitive }}</div>
+                                <div>{{ item.simple_past }}</div>
+                                <div>{{ item.past_participle }}</div>
+                                <div>{{ item.german }}</div>
+                            </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <script src="/static/script_result.js"></script>
+        {% else %}
+            <div id="progress-bar">
+                {% for x in range(10) %}
+                    <div class="progress-indicator" id="{{ x }}"></div>
+                {% endfor %}
+            </div>
+            <h2 id="question"></h2>
+            <form id="answer-form">
+                <label for="infinitive">infinitive</label>
+                <input type="text" id="infinitive" placeholder="infinitive" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" required autofocus>
+                <label for="simple_past">simple past</label>
+                <input type="text" id="simple_past" placeholder="simple past" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" required>
+                <label for="past_participle">past participle</label>
+                <input type="text" id="past_participle" placeholder="past participle" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" required>
+                <div id="btn-container">
+                    <input type="submit" value="submit">
+                    <button id="hint-btn">?</button>
+                </div>
+            </form>
+            <script src="/static/script_quiz.js"></script>
+        {% endif %}
+    </body>
+</html>
