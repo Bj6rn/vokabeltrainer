@@ -4,11 +4,12 @@ from time import sleep
 import datetime
 from flask import Flask, render_template, request, jsonify
 import csv, operator, pandas, json
-import os, fnmatch, random
+import os, sys, fnmatch, random
 
 app = Flask(__name__)
 
-vocabularylist = "static/irregular_verbs.csv"
+scriptdir = os.path.abspath(os.path.dirname(sys.argv[0]))
+vocabularylist = os.path.join(scriptdir, "static/irregular_verbs.csv")
 
 def date():
     date = datetime.datetime.now()
@@ -40,7 +41,7 @@ def get_vocabulary():
 
 def get_evaluation_data():
     try:
-        with open('static/evaluation.json', 'r') as f:
+        with open(os.path.join(scriptdir, "static/evaluation.json"), 'r') as f:
             data = json.load(f)
         
         return data[-1]
@@ -62,25 +63,24 @@ def log_day(voc, score, award, user_solution):
         "vocabulary": voc,
         "user_solution": user_solution
     }
-    with open('static/evaluation.json', 'r') as f:
+    with open(os.path.join(scriptdir, "static/evaluation.json"), 'r') as f:
         eval_data = json.load(f)
     
     eval_data.append(day_eval)
         
-    with open('static/evaluation.json', 'w') as f:
+    with open(os.path.join(scriptdir, "static/evaluation.json"), 'w') as f:
         json.dump(eval_data, f, indent=4)
 
 def get_random_award():
     award_list = []
-    path = "static/awards/"
+    path = os.path.join(scriptdir, "static/awards/")
     directory_list = os.listdir(path)
     pattern = "*.png"
     for file in directory_list:
         if fnmatch.fnmatch(file, pattern):
             award_list.append(file)
 
-    award = path + random.choice(award_list)
-    return award
+    return "static/awards/" +random.choice(award_list)
 
 
 @app.route('/vokabeltrainer', methods=['GET','POST'])
@@ -118,4 +118,4 @@ def vocabulary_trainer():
     return render_template('index.html', **templateData)
 
 if __name__ == "__main__":
-    app.run(port=2609, host='0.0.0.0', debug=True)
+    app.run(port=2609, host='0.0.0.0', debug=False)
